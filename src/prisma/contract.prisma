@@ -1,23 +1,88 @@
 // use prisma-8
 
-model students{
-  id Int @id @default(autoincrement())
+enum Turn{
+  morning
+  afternoon
 }
 
-model teacher{
+model Student{
   id Int @id @default(autoincrement())
+  name String
+  middleName String? @map("middle_name")
+  lastName String @map("last_name")
+  email String @unique
+  status Boolean @default(true)
+
+  @@map("students")
 }
 
-model subjects{
+model Teacher{
   id Int @id @default(autoincrement())
+  name String
+  middleName String? @map("middle_name")
+  lastName String @map("last_name")
+  email String @unique
+  status Boolean @default(true)
+
+  @@map("teachers")
 }
 
-model grades{
+model Subject{
   id Int @id @default(autoincrement())
+  name String
+  credits Int
+  semester Int
+  status Boolean @default(true)
+
+  @@map("subjects")
 }
 
-model groups{
+model Grade{
   id Int @id @default(autoincrement())
+  studentId Int @map("student_id")
+  student Student @relation(fields: [studentId], references: [id])
+  teacherGroupSubjectId Int @map("teacher_group_subject_id")
+  teacherGroupSubject TeacherGroupSubject @relation(fields: [teacherGroupSubjectId], references: [id])
+  grade Float
+  opportunity Int
+  registerDate DateTime @default(now()) @map("register_date")
+
+  @@unique ([studentId, teacherGroupSubjectId, opportunity]) //only triggers if three values are the same as other record
+  @@map("grades")
 }
 
+model Group{
+  id Int @id @default(autoincrement())
+  semester Int
+  turn Turn
+  creationDate DateTime @default(now()) @map("creation_date")
+  finishDate DateTime? @map("finish_date")
+  status Boolean @default(true)
+
+  @@map("groups")
+}
+
+model StudentGroup{
+  id Int @id @default(autoincrement())
+  studentId Int @map("student_id")
+  student Student @relation(fields: [studentId], references: [id])
+  groupId Int @map("group_id")
+  group Group @relation(fields: [groupId], references: [id])
+
+  @@unique([studentId, groupId])
+  @@map("student_groups")
+}
+
+model TeacherGroupSubject{
+  id Int @id @default(autoincrement())
+  teacherId Int @map("teacher_id")
+  teacher Teacher @relation(fields: [teacherId], references: [id])
+  groupId Int @map("group_id")
+  group Group @relation(fields: [groupId], references: [id])
+  subjectId Int @map("subject_id")
+  subject Subject @relation(fields: [subjectId], references: [id])
+
+  @@unique([teacherId, groupId, subjectId])
+  @@map("teacher_group_subjects")
+}
 
