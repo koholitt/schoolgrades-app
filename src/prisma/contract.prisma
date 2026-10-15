@@ -86,3 +86,4 @@ model TeacherGroupSubject{
   @@map("teacher_group_subjects")
 }
 
+//Add auth models after adding better auth
