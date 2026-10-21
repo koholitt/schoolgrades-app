@@ -1,4 +1,4 @@
-import { db } from "@/prisma/db"; // Adjust the import path if you aren't using path aliases
+import { db } from "@/prisma/db";
 
 export async function getStudents() {
   try {
