@@ -7,4 +7,8 @@ export const auth = betterAuth({
     provider: "postgresql", // or "mysql", "sqlite", ...etc
     schema: "public",
   }),
+
+  emailAndPassword: {
+    enabled: true,
+  },
 });
