@@ -4,7 +4,7 @@ import { getStudents } from "@/get/students";
 import { createStudent } from "@/post/students";
 
 async function StudentList() {
-  await connection(); // wait for a real request instead of pre-rendering
+  await connection(); // wait for a real request instead of pre-rendering, gives each user it's unique instance
   const students = await getStudents();
 
   return (
