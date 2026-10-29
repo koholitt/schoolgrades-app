@@ -1,5 +1,5 @@
 "use server";
-import { auth } from "../lib/auth";
+import { auth } from "./auth";
 
 export async function createNewAccount(formData: FormData) {
   const name = String(formData.get("name"));

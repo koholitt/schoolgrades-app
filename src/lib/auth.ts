@@ -1,5 +1,6 @@
 import { betterAuth } from "better-auth";
 import { prisma8Adapter } from "better-auth-adapter-prisma8"; //community adapter for prisma v8
+import { admin } from "better-auth/plugins";
 import { db } from "@/prisma/db"; // your prisma client instance
 
 export const auth = betterAuth({
@@ -12,4 +13,6 @@ export const auth = betterAuth({
     enabled: true,
     autoSignIn: false,
   },
+
+  plugins: [admin()],
 });
