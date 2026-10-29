@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { connection } from "next/server";
-import { getStudents } from "@/get/students";
-import { createStudent } from "@/post/students";
+import { getStudents } from "@/data/students";
+import { createStudent } from "@/actions/students";
 
 async function StudentList() {
   await connection(); // wait for a real request instead of pre-rendering, gives each user it's unique instance
